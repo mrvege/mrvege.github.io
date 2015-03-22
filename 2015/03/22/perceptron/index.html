@@ -4,12 +4,12 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Hello World | Mr.Vege&#39;s Zone</title>
+    <title>perceptron | Mr.Vege&#39;s Zone</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="Mr.Vege">
     
-    <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in ">
+    <meta name="description" content="相关原理就不再介绍了， 代码贴一下：这里解决的是李航统计学习方法书上2.1的习题1234567891011121314151617181920212223242526272829303132333435# -*- coding:utf-8 -*-import numpy as np training">
     
     
     
@@ -65,15 +65,15 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/03/21/hello-world/" title="Hello World" itemprop="url">Hello World</a>
+      <a href="/2015/03/22/perceptron/" title="perceptron" itemprop="url">perceptron</a>
   </h1>
   <p class="article-author">By
     
       <a href="http://mrvege.github.io" title="Mr.Vege">Mr.Vege</a>
     </p>
   <p class="article-time">
-    <time datetime="2015-03-21T09:03:40.000Z" itemprop="datePublished">2015-03-21</time>
-    更新日期:<time datetime="2015-03-21T09:03:40.000Z" itemprop="dateModified">2015-03-21</time>
+    <time datetime="2015-03-22T03:28:58.000Z" itemprop="datePublished">2015-03-22</time>
+    更新日期:<time datetime="2015-03-22T12:18:40.000Z" itemprop="dateModified">2015-03-22</time>
     
   </p>
 </header>
@@ -82,28 +82,30 @@
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目錄</strong>
-		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick_Start"><span class="toc-number">1.</span> <span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create_a_new_post"><span class="toc-number">1.1.</span> <span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run_server"><span class="toc-number">1.2.</span> <span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate_static_files"><span class="toc-number">1.3.</span> <span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy_to_remote_sites"><span class="toc-number">1.4.</span> <span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+		
 		</div>
 		
-		<p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run_server">Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate_static_files">Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+		<p>相关原理就不再介绍了， 代码贴一下：<br>这里解决的是李航统计学习方法书上2.1的习题<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"> </span><br><span class="line">training_set = np.array([[(<span class="number">3</span>, <span class="number">3</span>), <span class="number">1</span>], [(<span class="number">4</span>, <span class="number">3</span>), <span class="number">1</span>], [(<span class="number">1</span>, <span class="number">1</span>), -<span class="number">1</span>]])</span><br><span class="line">w = np.zeros(<span class="number">2</span>, dtype=int)</span><br><span class="line">b = <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">update</span><span class="params">(item)</span>:</span></span><br><span class="line">    <span class="keyword">global</span> w, b</span><br><span class="line">    w[<span class="number">0</span>] += <span class="number">1</span> * item[<span class="number">1</span>] * item[<span class="number">0</span>][<span class="number">0</span>]</span><br><span class="line">    w[<span class="number">1</span>] += <span class="number">1</span> * item[<span class="number">1</span>] * item[<span class="number">0</span>][<span class="number">1</span>]</span><br><span class="line">    b += <span class="number">1</span> * item[<span class="number">1</span>]</span><br><span class="line">    <span class="keyword">print</span> w, b</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cal</span><span class="params">(item)</span>:</span></span><br><span class="line">    res = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(item[<span class="number">0</span>])):</span><br><span class="line">        res += item[<span class="number">0</span>][i] * w[i]</span><br><span class="line">    res += b</span><br><span class="line">    res *= item[<span class="number">1</span>]</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">check</span><span class="params">()</span>:</span></span><br><span class="line">    flag = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> training_set:</span><br><span class="line">        <span class="keyword">if</span> cal(item) &lt;= <span class="number">0</span>:</span><br><span class="line">            flag = <span class="number">1</span></span><br><span class="line">            update(item)</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> flag:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"RESULT: w: "</span> + str(w) + <span class="string">" b: "</span> + str(b)</span><br><span class="line">    <span class="keyword">return</span> flag</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1000</span>):</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> check(): <span class="keyword">break</span></span><br></pre></td></tr></table></figure></p>
   
 	</div>
 		<footer class="article-footer clearfix">
 
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/python/">python</a>
+  </div>
+
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/machine-learning-coding/">machine learning, coding</a>
+</div>
 
 
 
 <div class="article-share" id="share">
 
-  <div data-url="http://mrvege.github.io/2015/03/21/hello-world/" data-title="Hello World | Mr.Vege&#39;s Zone" data-tsina="null" class="share clearfix">
+  <div data-url="http://mrvege.github.io/2015/03/22/perceptron/" data-title="perceptron | Mr.Vege&#39;s Zone" data-tsina="null" class="share clearfix">
   </div>
 
 </div>
@@ -112,14 +114,14 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2015/03/21/20150321/" title="在github安家了">
-  <strong>PREVIOUS:</strong><br/>
-  <span>
-  在github安家了</span>
+
+<div class="next">
+<a href="/2015/03/21/my-blog/"  title="my blog">
+ <strong>NEXT:</strong><br/> 
+ <span>my blog
+</span>
 </a>
 </div>
-
 
 </nav>
 
@@ -129,7 +131,7 @@
 
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目錄</strong>
-  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick_Start"><span class="toc-number">1.</span> <span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create_a_new_post"><span class="toc-number">1.1.</span> <span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run_server"><span class="toc-number">1.2.</span> <span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate_static_files"><span class="toc-number">1.3.</span> <span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy_to_remote_sites"><span class="toc-number">1.4.</span> <span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+  
   </div>
 
 <div id="asidepart">
