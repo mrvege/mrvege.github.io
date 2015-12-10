@@ -174,6 +174,48 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-使用Spark分析author—keyword数据集" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/12/10/使用Spark分析author—keyword数据集/" class="article-date">
+  	<time datetime="2015-12-10T07:05:53.000Z" itemprop="datePublished">2015-12-10</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="使用Spark分析author—keyword数据集">使用Spark分析author—keyword数据集</h1><blockquote>
+<p>数据集来自唐杰Aminer dataset中自2006-2011中抽取的DM顶级会议的paper, 其中user为paper author, 而item 为出现在paper中的keyword</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">dataset = sc.textFile(<span class="string">"hdfs:///dm/author_keyword/author_keyword.txt"</span>)</span><br><span class="line">user_fields = dataset.map(<span class="keyword">lambda</span> line: line.split(<span class="string">" "</span>))</span><br><span class="line"><span class="comment"># dataset </span></span><br><span class="line">num_users = user_fields.map(<span class="keyword">lambda</span> fields: fields[<span class="number">0</span>]).distinct().count()</span><br><span class="line"><span class="comment"># num_users： 27130</span></span><br><span class="line">num_keywords = user_fields.map(<span class="keyword">lambda</span> field: field[<span class="number">1</span>]).distinct().count()</span><br><span class="line"><span class="comment"># num_keywords： 13543</span></span><br><span class="line">num_ratings = user_fields.map(<span class="keyword">lambda</span> field: field[<span class="number">2</span>]).distinct().count()</span><br><span class="line"><span class="comment">#num_ratings: 30</span></span><br><span class="line">ratings = user_fields.map(<span class="keyword">lambda</span> field: int(field[<span class="number">2</span>]))</span><br><span class="line">max_rating = ratings.reduce(<span class="keyword">lambda</span> x,y : max(x, y))</span><br><span class="line">min_rating = ratings.reduce(<span class="keyword">lambda</span> x,y : min(x, y))</span><br><span class="line"><span class="comment">#max : 52  min:1</span></span><br><span class="line">num_ratings = user_fields.count()</span><br><span class="line"><span class="comment"># num_ratings: 703320 总记录条数</span></span><br><span class="line">mean_rating = ratings.reduce(<span class="keyword">lambda</span> x,y: x+y) *<span class="number">1.0</span> / num_ratings</span><br><span class="line"><span class="comment">#mean_rating： 1.113</span></span><br><span class="line">ratings_per_user = num_ratings / num_users</span><br><span class="line"><span class="comment"># ratings_per_user： 25   平均每个用户和25条记录有关</span></span><br><span class="line">median_rating = np.median(ratings.collect())</span><br><span class="line"><span class="comment">#median_rating ： 1.0  rating的中位数为1</span></span><br><span class="line">ratings_per_keyword = num_ratings / num_keywords</span><br><span class="line"><span class="comment">#ratings_per_keyword： 51</span></span><br><span class="line">ratings.stats()</span><br><span class="line"><span class="comment">#  (count: 703320, mean: 1.11235852812, stdev: 0.529708031287, max: 52.0, min: 1.0)</span></span><br><span class="line">count_by_rating = ratings.countByValue()</span><br><span class="line"><span class="comment"># &#123;1: 650410, 2: 39472, 3: 7984, 4: 2731, 5: 1178, 6: 629, 7: 363, 8: 193, 9: 103, 10: 80, 11: 48, 12: 27, 13: 21, 14: 18, 15: 12, 16: 12, 17: 10, 18: 3, 19: 6, 20: 4, 21: 3, 22: 2, 24: 1, 27: 1, 29: 3, 30: 1, 33: 2, 34: 1, 44: 1, 52: 1&#125;</span></span><br><span class="line"><span class="comment">#绘图</span></span><br><span class="line">x_axis = np.array(count_by_rating.keys())</span><br><span class="line">y_axis = np.array([float(c) <span class="keyword">for</span> c <span class="keyword">in</span> count_by_rating.values()])</span><br><span class="line">y_axis_normed = y_axis / y_axis.sum()</span><br><span class="line">pos = np.arange(len(x_axis))</span><br><span class="line">width =<span class="number">1.0</span></span><br><span class="line">ax = plt.axes()</span><br><span class="line">ax.set_xticks(pos +(width /<span class="number">2</span>))</span><br><span class="line">ax.set_xticklabels(x_axis)</span><br><span class="line">plt.bar(pos, y_axis_normed, width, color=<span class="string">'lightblue'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">user_rating_grouped = user_fields.map(<span class="keyword">lambda</span> fields:(int(fields[<span class="number">0</span>]), int (fields[<span class="number">2</span>]))).groupByKey()</span><br><span class="line"><span class="comment">#user_rating_grouped: PythonRDD[58] at RDD at PythonRDD.scala:43</span></span><br><span class="line">user_ratings_byuser = user_ratings_grouped.map(<span class="keyword">lambda</span> (k, v): (k, len(v)))</span><br><span class="line">user_ratings_byuser_local = user_ratings_byuser.map(<span class="keyword">lambda</span> (k, v): v).collect()</span><br><span class="line"><span class="comment">#各author rating次数直方图</span></span><br><span class="line">hist(user_ratings_byuser_local, bins=<span class="number">200</span>, color=<span class="string">'lightblue'</span>, normed=<span class="keyword">True</span>)</span><br><span class="line">fig = matplotlib.pyplot.gcf()</span><br><span class="line">fig.set_size_inches(<span class="number">16</span>,<span class="number">10</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="https://lh3.googleusercontent.com/TBlkwczo_FIsPvbLmo6VK8KvLkqWrOobqDVO5LfvaCE=s0" alt="rating分布" title="11.png"><br><img src="https://lh3.googleusercontent.com/m25dQxcVzeiCChM6NRgPpeknrlS-GYO-41GBzp5XMpA=s0" alt="author rating次数分布直方图"></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+  
     <article id="post-Spark聚类" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
