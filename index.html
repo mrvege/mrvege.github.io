@@ -108,7 +108,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/phantomjs-selenium-python-crawl/" style="font-size: NaNpx;">phantomjs, selenium, python,crawl</a><a href="/tags/python/" style="font-size: NaNpx;">python</a><a href="/tags/python-socket/" style="font-size: NaNpx;">python, socket</a>
+						<a href="/tags/github/" style="font-size: NaNpx;">github</a><a href="/tags/phantomjs-selenium-python-crawl/" style="font-size: NaNpx;">phantomjs, selenium, python,crawl</a><a href="/tags/python/" style="font-size: NaNpx;">python</a><a href="/tags/python-socket/" style="font-size: NaNpx;">python, socket</a>
 					</div>
 				</section>
 				
@@ -173,6 +173,121 @@
 	</div>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-my-gist" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/12/15/my-gist/" class="article-date">
+  	<time datetime="2015-12-15T12:08:26.000Z" itemprop="datePublished">2015-12-15</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/12/15/my-gist/">my gist</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>对了， 有时候我的代码并不会放在博客或者git仓库里，简短的代码可能都会直接用gist发布<br>我的gist的地址：<a href="https://gist.github.com/mrvege" target="_blank" rel="external">https://gist.github.com/mrvege</a></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/">github</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+  
+    <article id="python-selenium, Phantomjs use to crawl paper" class="article article-type-python" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/12/15/selenium, Phantomjs use to crawl paper/" class="article-date">
+  	<time datetime="2015-12-15T11:49:09.000Z" itemprop="datePublished">2015-12-15</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/12/15/selenium, Phantomjs use to crawl paper/">selenium, Phantomjs use to crawl paper</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>本意是用scrapy去抓取文件的， 不过pdf下载部分一直搞不定， 只好先找到页面连接， 然后用selenium和phantomjs来模拟浏览器的行为， 采用点击，另存为的方法<br>不得不说， 标准的论文数据库还是对下载做了许多限制的， 比如我点击论文的pdf地址， 后退回原网页，再重新点击pdf地址，也会给出警告，然后转移到请求登录的界面。<br>这里给出一个简单的单页抓取模板， 但是这种方法效率并不高，SSRN数据库加载的很慢。</p>
+<h3 id="1-_基本下载模块">1. 基本下载模块</h3><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># encoding: utf-8</span></span><br><span class="line"><span class="variable">__author__ =</span> 'dm'</span><br><span class="line"></span><br><span class="line">from selenium <span class="built_in">import</span> webdriver</span><br><span class="line">from selenium.common.exceptions <span class="built_in">import</span> NoSuchElementException</span><br><span class="line"><span class="built_in">import</span> requests</span><br><span class="line">from bs4 <span class="built_in">import</span> BeautifulSoup</span><br><span class="line"><span class="built_in">import</span> time</span><br><span class="line"><span class="built_in">import</span> urllib.request</span><br><span class="line"></span><br><span class="line"><span class="variable">driver =</span> webdriver.PhantomJS()</span><br><span class="line">driver.set_window_size(<span class="number">1120</span>,<span class="number">550</span>)</span><br><span class="line"><span class="variable">paper_url =</span> <span class="string">"http://papers.ssrn.com/sol3/papers.cfm?abstract_id=2702516"</span></span><br><span class="line">driver.get(paper_url)</span><br><span class="line"><span class="comment"># driver.get("http://papers.ssrn.com/sol3/papers.cfm?abstract_id=2703212")</span></span><br><span class="line"><span class="variable">content =</span> driver.page_source</span><br><span class="line"><span class="variable">flag =</span> <span class="number">1</span></span><br><span class="line">try:</span><br><span class="line">	<span class="variable">download_button =</span> driver.find_element_by_id(<span class="string">"openDownloadLink1"</span>)</span><br><span class="line">	time.sleep(<span class="number">2</span>)</span><br><span class="line">	download_button.click()</span><br><span class="line">	<span class="keyword">if</span> <span class="string">"Data_Integrity_Notice"</span> <span class="keyword">in</span> driver.current_url:</span><br><span class="line">		driver.find_element_by_css_selector(<span class="string">"#AnonymousTab &gt; a.deselected &gt; nobr"</span>).click()</span><br><span class="line">		driver.find_element_by_name(<span class="string">"ProcessAnym"</span>).click()</span><br><span class="line">	<span class="keyword">else</span>:</span><br><span class="line">		<span class="variable">pdf_name =</span> paper_url[<span class="number">51</span>:] +<span class="string">".pdf"</span></span><br><span class="line">		urllib.request.urlretrieve(driver.current_url, pdf_name)</span><br><span class="line">except NoSuchElementException as e:</span><br><span class="line">	print(<span class="string">"need buy it"</span>)</span><br><span class="line">	<span class="variable">flag =</span> <span class="number">0</span></span><br><span class="line">	driver.quit()</span><br></pre></td></tr></table></figure>
+<h3 id="2-_测试脚本">2. 测试脚本</h3><blockquote>
+<p>用selenium直接导出了一个测试脚本， 非常方便， 推荐大家使用。<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">from selenium import webdriver</span><br><span class="line">from selenium<span class="class">.webdriver</span><span class="class">.common</span><span class="class">.by</span> import By</span><br><span class="line">from selenium<span class="class">.webdriver</span><span class="class">.common</span><span class="class">.keys</span> import Keys</span><br><span class="line">from selenium<span class="class">.webdriver</span><span class="class">.support</span><span class="class">.ui</span> import Select</span><br><span class="line">from selenium<span class="class">.common</span><span class="class">.exceptions</span> import NoSuchElementException</span><br><span class="line">from selenium<span class="class">.common</span><span class="class">.exceptions</span> import NoAlertPresentException</span><br><span class="line">import unittest, <span class="tag">time</span>, re</span><br><span class="line"></span><br><span class="line">class <span class="function"><span class="title">Test1</span><span class="params">(unittest.TestCase)</span></span>:</span><br><span class="line">    def <span class="function"><span class="title">setUp</span><span class="params">(self)</span></span>:</span><br><span class="line">        self<span class="class">.driver</span> = webdriver.<span class="function"><span class="title">Chrome</span><span class="params">()</span></span></span><br><span class="line">        self<span class="class">.driver</span><span class="class">.implicitly_wait</span>(<span class="number">30</span>)</span><br><span class="line">        self<span class="class">.base_url</span> = <span class="string">"http://papers.ssrn.com/"</span></span><br><span class="line">        self<span class="class">.verificationErrors</span> = []</span><br><span class="line">        self<span class="class">.accept_next_alert</span> = True</span><br><span class="line">    </span><br><span class="line">    def <span class="function"><span class="title">test_1</span><span class="params">(self)</span></span>:</span><br><span class="line">        driver = self<span class="class">.driver</span></span><br><span class="line">        driver.<span class="function"><span class="title">get</span><span class="params">(self.base_url + <span class="string">"/sol3/papers.cfm?abstract_id=2697209&amp;download=yes"</span>)</span></span></span><br><span class="line">        driver.<span class="function"><span class="title">find_element_by_id</span><span class="params">(<span class="string">"openDownloadLink1"</span>)</span></span>.<span class="function"><span class="title">click</span><span class="params">()</span></span></span><br><span class="line">        driver.<span class="function"><span class="title">find_element_by_css_selector</span><span class="params">(<span class="string">"#AnonymousTab &gt; a.deselected &gt; nobr"</span>)</span></span>.<span class="function"><span class="title">click</span><span class="params">()</span></span></span><br><span class="line">        driver.<span class="function"><span class="title">find_element_by_name</span><span class="params">(<span class="string">"ProcessAnym"</span>)</span></span>.<span class="function"><span class="title">click</span><span class="params">()</span></span></span><br><span class="line">    </span><br><span class="line">    def <span class="function"><span class="title">is_element_present</span><span class="params">(self, how, what)</span></span>:</span><br><span class="line">        try: self<span class="class">.driver</span><span class="class">.find_element</span>(by=how, value=what)</span><br><span class="line">        except NoSuchElementException as e: return False</span><br><span class="line">        return True</span><br><span class="line">    </span><br><span class="line">    def <span class="function"><span class="title">is_alert_present</span><span class="params">(self)</span></span>:</span><br><span class="line">        try: self<span class="class">.driver</span><span class="class">.switch_to</span><span class="class">.alert</span>()</span><br><span class="line">        except NoAlertPresentException as  e: return False</span><br><span class="line">        return True</span><br><span class="line">    </span><br><span class="line">    def <span class="function"><span class="title">close_alert_and_get_its_text</span><span class="params">(self)</span></span>:</span><br><span class="line">        try:</span><br><span class="line">            alert = self<span class="class">.driver</span><span class="class">.switch_to</span><span class="class">.alert</span>()</span><br><span class="line">            alert_text = alert<span class="class">.text</span></span><br><span class="line">            <span class="keyword">if</span> self<span class="class">.accept_next_alert</span>:</span><br><span class="line">                alert.<span class="function"><span class="title">accept</span><span class="params">()</span></span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                alert.<span class="function"><span class="title">dismiss</span><span class="params">()</span></span></span><br><span class="line">            return alert_text</span><br><span class="line">        finally: self<span class="class">.accept_next_alert</span> = True</span><br><span class="line">    </span><br><span class="line">    def <span class="function"><span class="title">tearDown</span><span class="params">(self)</span></span>:</span><br><span class="line">        self<span class="class">.driver</span><span class="class">.quit</span>()</span><br><span class="line">        self.<span class="function"><span class="title">assertEqual</span><span class="params">([], self.verificationErrors)</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    unittest.<span class="function"><span class="title">main</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h3 id="3-_PhantomJS以及firefox设置代理">3. PhantomJS以及firefox设置代理</h3><p>需要在配置文件中加入以下内容</p>
+<p>3.1  PhantomJS<br><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">service_args =</span> [</span><br><span class="line">	'<span class="variable">--proxy=</span><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">1080</span>' ,</span><br><span class="line">	'<span class="variable">--proxy-type=</span>socks5' ,</span><br><span class="line">]</span><br><span class="line"><span class="variable">driver =</span> webdriver.PhantomJS(<span class="variable">service_args=</span> service_args)</span><br></pre></td></tr></table></figure></p>
+<p>3.2  Firefox</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">profile = webdriver.<span class="function"><span class="title">FirefoxProfile</span><span class="params">()</span></span></span><br><span class="line">profile.<span class="function"><span class="title">set_preference</span><span class="params">(<span class="string">'network.proxy.type'</span>, <span class="number">1</span>)</span></span>   #默认值<span class="number">0</span>，就是直接连接；<span class="number">1</span>就是手工配置代理。</span><br><span class="line">profile.<span class="function"><span class="title">set_preference</span><span class="params">(<span class="string">'network.proxy.socks'</span>, proxyip)</span></span> #proxyip需自定义， 我用的是本地的代理<span class="string">"127.0.0.1"</span></span><br><span class="line">profile.<span class="function"><span class="title">set_preference</span><span class="params">(<span class="string">'network.proxy.socks_port'</span>, port)</span></span> #port自定义</span><br><span class="line">profile.<span class="function"><span class="title">set_preference</span><span class="params">(<span class="string">'network.proxy.ssl'</span>,ip)</span></span></span><br><span class="line">profile.<span class="function"><span class="title">set_preference</span><span class="params">(<span class="string">'network.proxy.ssl_port'</span>, port)</span></span></span><br><span class="line">profile.<span class="function"><span class="title">update_preferences</span><span class="params">()</span></span></span><br><span class="line">browser = webdriver.<span class="function"><span class="title">Firefox</span><span class="params">(profile)</span></span></span><br></pre></td></tr></table></figure>
+<hr>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/phantomjs-selenium-python-crawl/">phantomjs, selenium, python,crawl</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
   
     <article id="post-使用Spark分析author—keyword数据集" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -386,68 +501,6 @@
       
 	<div class="article-tag tagcloud">
 		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python-socket/">python, socket</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-  
-    <article id="python-selenium, Phantomjs use to crawl paper" class="article article-type-python" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/04/06/selenium, Phantomjs use to crawl paper/" class="article-date">
-  	<time datetime="2015-04-06T11:49:09.000Z" itemprop="datePublished">2015-04-06</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/04/06/selenium, Phantomjs use to crawl paper/">selenium, Phantomjs use to crawl paper</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>本意是用scrapy去抓取文件的， 不过pdf下载部分一直搞不定， 只好先找到页面连接， 然后用selenium和phantomjs来模拟浏览器的行为， 采用点击，另存为的方法<br>不得不说， 标准的论文数据库还是对下载做了许多限制的， 比如我点击论文的pdf地址， 后退回原网页，再重新点击pdf地址，也会给出警告，然后转移到请求登录的界面。<br>这里给出一个简单的单页抓取模板， 但是这种方法效率并不高，SSRN数据库加载的很慢。</p>
-<h3 id="1-_基本下载模块">1. 基本下载模块</h3><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># encoding: utf-8</span></span><br><span class="line"><span class="variable">__author__ =</span> 'dm'</span><br><span class="line"></span><br><span class="line">from selenium <span class="built_in">import</span> webdriver</span><br><span class="line">from selenium.common.exceptions <span class="built_in">import</span> NoSuchElementException</span><br><span class="line"><span class="built_in">import</span> requests</span><br><span class="line">from bs4 <span class="built_in">import</span> BeautifulSoup</span><br><span class="line"><span class="built_in">import</span> time</span><br><span class="line"><span class="built_in">import</span> urllib.request</span><br><span class="line"></span><br><span class="line"><span class="variable">driver =</span> webdriver.PhantomJS()</span><br><span class="line">driver.set_window_size(<span class="number">1120</span>,<span class="number">550</span>)</span><br><span class="line"><span class="variable">paper_url =</span> <span class="string">"http://papers.ssrn.com/sol3/papers.cfm?abstract_id=2702516"</span></span><br><span class="line">driver.get(paper_url)</span><br><span class="line"><span class="comment"># driver.get("http://papers.ssrn.com/sol3/papers.cfm?abstract_id=2703212")</span></span><br><span class="line"><span class="variable">content =</span> driver.page_source</span><br><span class="line"><span class="variable">flag =</span> <span class="number">1</span></span><br><span class="line">try:</span><br><span class="line">	<span class="variable">download_button =</span> driver.find_element_by_id(<span class="string">"openDownloadLink1"</span>)</span><br><span class="line">	time.sleep(<span class="number">2</span>)</span><br><span class="line">	download_button.click()</span><br><span class="line">	<span class="keyword">if</span> <span class="string">"Data_Integrity_Notice"</span> <span class="keyword">in</span> driver.current_url:</span><br><span class="line">		driver.find_element_by_css_selector(<span class="string">"#AnonymousTab &gt; a.deselected &gt; nobr"</span>).click()</span><br><span class="line">		driver.find_element_by_name(<span class="string">"ProcessAnym"</span>).click()</span><br><span class="line">	<span class="keyword">else</span>:</span><br><span class="line">		<span class="variable">pdf_name =</span> paper_url[<span class="number">51</span>:] +<span class="string">".pdf"</span></span><br><span class="line">		urllib.request.urlretrieve(driver.current_url, pdf_name)</span><br><span class="line">except NoSuchElementException as e:</span><br><span class="line">	print(<span class="string">"need buy it"</span>)</span><br><span class="line">	<span class="variable">flag =</span> <span class="number">0</span></span><br><span class="line">	driver.quit()</span><br></pre></td></tr></table></figure>
-<h3 id="2-_测试脚本">2. 测试脚本</h3><blockquote>
-<p>用selenium直接导出了一个测试脚本， 非常方便， 推荐大家使用。<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">from selenium import webdriver</span><br><span class="line">from selenium<span class="class">.webdriver</span><span class="class">.common</span><span class="class">.by</span> import By</span><br><span class="line">from selenium<span class="class">.webdriver</span><span class="class">.common</span><span class="class">.keys</span> import Keys</span><br><span class="line">from selenium<span class="class">.webdriver</span><span class="class">.support</span><span class="class">.ui</span> import Select</span><br><span class="line">from selenium<span class="class">.common</span><span class="class">.exceptions</span> import NoSuchElementException</span><br><span class="line">from selenium<span class="class">.common</span><span class="class">.exceptions</span> import NoAlertPresentException</span><br><span class="line">import unittest, <span class="tag">time</span>, re</span><br><span class="line"></span><br><span class="line">class <span class="function"><span class="title">Test1</span><span class="params">(unittest.TestCase)</span></span>:</span><br><span class="line">    def <span class="function"><span class="title">setUp</span><span class="params">(self)</span></span>:</span><br><span class="line">        self<span class="class">.driver</span> = webdriver.<span class="function"><span class="title">Chrome</span><span class="params">()</span></span></span><br><span class="line">        self<span class="class">.driver</span><span class="class">.implicitly_wait</span>(<span class="number">30</span>)</span><br><span class="line">        self<span class="class">.base_url</span> = <span class="string">"http://papers.ssrn.com/"</span></span><br><span class="line">        self<span class="class">.verificationErrors</span> = []</span><br><span class="line">        self<span class="class">.accept_next_alert</span> = True</span><br><span class="line">    </span><br><span class="line">    def <span class="function"><span class="title">test_1</span><span class="params">(self)</span></span>:</span><br><span class="line">        driver = self<span class="class">.driver</span></span><br><span class="line">        driver.<span class="function"><span class="title">get</span><span class="params">(self.base_url + <span class="string">"/sol3/papers.cfm?abstract_id=2697209&amp;download=yes"</span>)</span></span></span><br><span class="line">        driver.<span class="function"><span class="title">find_element_by_id</span><span class="params">(<span class="string">"openDownloadLink1"</span>)</span></span>.<span class="function"><span class="title">click</span><span class="params">()</span></span></span><br><span class="line">        driver.<span class="function"><span class="title">find_element_by_css_selector</span><span class="params">(<span class="string">"#AnonymousTab &gt; a.deselected &gt; nobr"</span>)</span></span>.<span class="function"><span class="title">click</span><span class="params">()</span></span></span><br><span class="line">        driver.<span class="function"><span class="title">find_element_by_name</span><span class="params">(<span class="string">"ProcessAnym"</span>)</span></span>.<span class="function"><span class="title">click</span><span class="params">()</span></span></span><br><span class="line">    </span><br><span class="line">    def <span class="function"><span class="title">is_element_present</span><span class="params">(self, how, what)</span></span>:</span><br><span class="line">        try: self<span class="class">.driver</span><span class="class">.find_element</span>(by=how, value=what)</span><br><span class="line">        except NoSuchElementException as e: return False</span><br><span class="line">        return True</span><br><span class="line">    </span><br><span class="line">    def <span class="function"><span class="title">is_alert_present</span><span class="params">(self)</span></span>:</span><br><span class="line">        try: self<span class="class">.driver</span><span class="class">.switch_to</span><span class="class">.alert</span>()</span><br><span class="line">        except NoAlertPresentException as  e: return False</span><br><span class="line">        return True</span><br><span class="line">    </span><br><span class="line">    def <span class="function"><span class="title">close_alert_and_get_its_text</span><span class="params">(self)</span></span>:</span><br><span class="line">        try:</span><br><span class="line">            alert = self<span class="class">.driver</span><span class="class">.switch_to</span><span class="class">.alert</span>()</span><br><span class="line">            alert_text = alert<span class="class">.text</span></span><br><span class="line">            <span class="keyword">if</span> self<span class="class">.accept_next_alert</span>:</span><br><span class="line">                alert.<span class="function"><span class="title">accept</span><span class="params">()</span></span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                alert.<span class="function"><span class="title">dismiss</span><span class="params">()</span></span></span><br><span class="line">            return alert_text</span><br><span class="line">        finally: self<span class="class">.accept_next_alert</span> = True</span><br><span class="line">    </span><br><span class="line">    def <span class="function"><span class="title">tearDown</span><span class="params">(self)</span></span>:</span><br><span class="line">        self<span class="class">.driver</span><span class="class">.quit</span>()</span><br><span class="line">        self.<span class="function"><span class="title">assertEqual</span><span class="params">([], self.verificationErrors)</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    unittest.<span class="function"><span class="title">main</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<h3 id="3-_PhantomJS以及firefox设置代理">3. PhantomJS以及firefox设置代理</h3><p>需要在配置文件中加入以下内容</p>
-<p>3.1  PhantomJS<br><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">service_args =</span> [</span><br><span class="line">	'<span class="variable">--proxy=</span><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">1080</span>' ,</span><br><span class="line">	'<span class="variable">--proxy-type=</span>socks5' ,</span><br><span class="line">]</span><br><span class="line"><span class="variable">driver =</span> webdriver.PhantomJS(<span class="variable">service_args=</span> service_args)</span><br></pre></td></tr></table></figure></p>
-<p>3.2  Firefox</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">profile = webdriver.<span class="function"><span class="title">FirefoxProfile</span><span class="params">()</span></span></span><br><span class="line">profile.<span class="function"><span class="title">set_preference</span><span class="params">(<span class="string">'network.proxy.type'</span>, <span class="number">1</span>)</span></span>   #默认值<span class="number">0</span>，就是直接连接；<span class="number">1</span>就是手工配置代理。</span><br><span class="line">profile.<span class="function"><span class="title">set_preference</span><span class="params">(<span class="string">'network.proxy.socks'</span>, proxyip)</span></span> #proxyip需自定义， 我用的是本地的代理<span class="string">"127.0.0.1"</span></span><br><span class="line">profile.<span class="function"><span class="title">set_preference</span><span class="params">(<span class="string">'network.proxy.socks_port'</span>, port)</span></span> #port自定义</span><br><span class="line">profile.<span class="function"><span class="title">set_preference</span><span class="params">(<span class="string">'network.proxy.ssl'</span>,ip)</span></span></span><br><span class="line">profile.<span class="function"><span class="title">set_preference</span><span class="params">(<span class="string">'network.proxy.ssl_port'</span>, port)</span></span></span><br><span class="line">profile.<span class="function"><span class="title">update_preferences</span><span class="params">()</span></span></span><br><span class="line">browser = webdriver.<span class="function"><span class="title">Firefox</span><span class="params">(profile)</span></span></span><br></pre></td></tr></table></figure>
-<hr>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/phantomjs-selenium-python-crawl/">phantomjs, selenium, python,crawl</a></li></ul>
 	</div>
 
       
