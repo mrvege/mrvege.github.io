@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>python decrorator | Mr.Vege&#39;s Zone</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="用了python好久， 惭愧的是一些高级的语法糖就没怎么用过。花了点时间好好研究一下python 装饰器。所谓装饰， 就是想要对一些已经有的模块做一些修饰工作， 但又不让这个功能侵入到原有代码中去，常用的使用场景例如， 插入日志， 性能测试， 事务处理等等， 有了装饰器， 就可以提取大量函数中与本身功能无关的代码，从而重用代码。
+1234567891011import datetime def l">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python decrorator">
+<meta property="og:url" content="http://mrvege.github.io/2015/12/25/decrorator/index.html">
+<meta property="og:site_name" content="Mr.Vege's Zone">
+<meta property="og:description" content="用了python好久， 惭愧的是一些高级的语法糖就没怎么用过。花了点时间好好研究一下python 装饰器。所谓装饰， 就是想要对一些已经有的模块做一些修饰工作， 但又不让这个功能侵入到原有代码中去，常用的使用场景例如， 插入日志， 性能测试， 事务处理等等， 有了装饰器， 就可以提取大量函数中与本身功能无关的代码，从而重用代码。
+1234567891011import datetime def l">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="python decrorator">
+<meta name="twitter:description" content="用了python好久， 惭愧的是一些高级的语法糖就没怎么用过。花了点时间好好研究一下python 装饰器。所谓装饰， 就是想要对一些已经有的模块做一些修饰工作， 但又不让这个功能侵入到原有代码中去，常用的使用场景例如， 插入日志， 性能测试， 事务处理等等， 有了装饰器， 就可以提取大量函数中与本身功能无关的代码，从而重用代码。
+1234567891011import datetime def l">
+  
+    <link rel="alternative" href="/atom.xml" title="Mr.Vege&#39;s Zone" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			<img src="">
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Mr.Vege</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">machine learning, coding</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/mrvege" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/u/2907568531" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+					        
+								<a class="zhihu" target="_blank" href="http://www.zhihu.com/people/zhugeqingfeng" title="zhihu">zhihu</a>
+					        
+								<a class="mail" target="_blank" href="/caiminyi312@gmail.com" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/decrator/" style="font-size: NaNpx;">decrator</a><a href="/tags/github/" style="font-size: NaNpx;">github</a><a href="/tags/phantomjs-selenium-python-crawl/" style="font-size: NaNpx;">phantomjs, selenium, python,crawl</a><a href="/tags/python/" style="font-size: NaNpx;">python</a><a href="/tags/python-socket/" style="font-size: NaNpx;">python, socket</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">我是谁，我从哪里来，我到哪里去？我就是我，是颜色不一样的吃货…</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Mr.Vege</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img src="">
+				<hgroup>
+				  <h1 class="header-author">Mr.Vege</h1>
+				</hgroup>
+			</div>
+			
+			<p class="header-subtitle">machine learning, coding</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/mrvege" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/u/2907568531" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="http://www.zhihu.com/people/zhugeqingfeng" title="zhihu">zhihu</a>
+			        
+						<a class="mail" target="_blank" href="/caiminyi312@gmail.com" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-decrorator" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/12/25/decrorator/" class="article-date">
+  	<time datetime="2015-12-25T08:45:54.000Z" itemprop="datePublished">2015-12-25</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      python decrorator
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/decrator/">decrator</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/python-programming/">python, programming</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>用了python好久， 惭愧的是一些高级的语法糖就没怎么用过。花了点时间好好研究一下python 装饰器。<br>所谓装饰， 就是想要对一些已经有的模块做一些修饰工作， 但又不让这个功能侵入到原有代码中去，常用的使用场景例如， 插入日志， 性能测试， 事务处理等等， 有了装饰器， 就可以提取大量函数中与本身功能无关的代码，从而重用代码。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> datetime</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">def</span> <span class="title">log</span><span class="params">(func)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">wrapper</span><span class="params">(*args, **kw)</span>:</span></span><br><span class="line">        print(<span class="string">'call %s():'</span> % func.__name__)</span><br><span class="line">        <span class="keyword">return</span> func(*args, **kw)</span><br><span class="line">    <span class="keyword">return</span> wrapper</span><br><span class="line"></span><br><span class="line"><span class="decorator">@log</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">now</span><span class="params">()</span>:</span></span><br><span class="line">    print(datetime.datetime.today())</span><br></pre></td></tr></table></figure>
+<p>对上面代码的注解：</p>
+<ol>
+<li>函数log中需要一个func的参数， 也就是用来回调的函数。</li>
+<li>在now函数前有一个@log， 即之前我们定义的函数</li>
+</ol>
+<p>当我们调用now函数时，  now()返回了wrapper()函数， 所以now其实变成了wrapper的一个变量， 而后面的log执行其实变成了wrapper()</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">now</span><span class="params">()</span></span></span><br><span class="line">call <span class="function"><span class="title">now</span><span class="params">()</span></span>:</span><br><span class="line"><span class="number">2015</span>-<span class="number">06</span>-<span class="number">18</span> <span class="number">11</span>:<span class="number">00</span>:<span class="number">52.339373</span></span><br></pre></td></tr></table></figure>
+<p>这样， 装饰器没有影响到原来的函数，也没影响函数调用的模块。</p>
+<p>而多个装饰器，<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="decorator">@decorator1</span></span><br><span class="line"><span class="decorator">@decorator2</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">now</span><span class="params">()</span>:</span></span><br><span class="line">    print(datetime.datetime.today())</span><br></pre></td></tr></table></figure></p>
+<p>其实等价于 <strong>now = decorator1(decorator2(now))</strong><br>（其实就是说装饰器的调用顺序与其声明的顺序相反）</p>
+<p>而如果装饰器自己带参数， 其实就是说装饰器这个函数需要返回一个真正的decorator<br>比如：（本例子引用自廖雪峰python3装饰器）<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">log</span><span class="params">(text)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">decorator</span><span class="params">(func)</span>:</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">wrapper</span><span class="params">(*args, **kw)</span>:</span></span><br><span class="line">            print(<span class="string">'%s %s():'</span> % (text, func.__name__))</span><br><span class="line">            <span class="keyword">return</span> func(*args, **kw)</span><br><span class="line">        <span class="keyword">return</span> wrapper</span><br><span class="line">    <span class="keyword">return</span> decorator</span><br></pre></td></tr></table></figure></p>
+<p>若调用<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="decorator">@log</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">now</span><span class="params">()</span>:</span></span><br><span class="line">    print(datetime.datetime.today())</span><br></pre></td></tr></table></figure></p>
+<p>实际上就是<br><strong>now = decorator(text)(now)</strong></p>
+<p>而如果被装饰的那个函数带参数， 则装饰器的函数也需要加入对应参数<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">log</span><span class="params">(func)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">wrapper</span><span class="params">(text2)</span>:</span></span><br><span class="line">        print(<span class="string">'%s'</span> % (func.__name__))</span><br><span class="line">        <span class="keyword">return</span> func(text2)</span><br><span class="line">    <span class="keyword">return</span> wrapper</span><br><span class="line"></span><br><span class="line"><span class="decorator">@log</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">now</span><span class="params">(text2)</span>:</span></span><br><span class="line">    print(datetime.datetime.today())</span><br><span class="line">    print(text2)</span><br></pre></td></tr></table></figure></p>
+<p>比如调用<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">now</span><span class="params">(<span class="string">"haha"</span>)</span></span></span><br></pre></td></tr></table></figure></p>
+<p>输出如下：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">now</span></span><br><span class="line">2015<span class="tag">-06-18</span> 11<span class="pseudo">:20</span><span class="pseudo">:11</span><span class="class">.246544</span></span><br><span class="line"><span class="tag">haha</span></span><br></pre></td></tr></table></figure></p>
+<p>简单的总结到这里， 比较好的例子可以参看<br><a href="http://coolshell.cn/articles/11265.html" target="_blank" rel="external">Python修饰器的函数式编程</a></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2015/12/15/my-gist/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">my gist</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="decrorator" data-title="python decrorator" data-url="http://mrvege.github.io/2015/12/25/decrorator/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2015 Mr.Vege
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/mobile.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+<! -- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+  </div>
+</body>
+</html>
